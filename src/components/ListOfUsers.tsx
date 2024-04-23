@@ -1,8 +1,10 @@
 const tableHead = ['Name', 'Email', 'Role', '']
-import { useAppSelector } from '../hooks/store'
+import { useUsersActions, useAppSelector } from '../hooks'
 
 export default function ListOfUsers() {
 	const people = useAppSelector(state => state.users)
+	const { handleDelete } = useUsersActions()
+
 	return (
 		<div className='h-screen bg-slate-700 p-3 '>
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
@@ -51,12 +53,13 @@ export default function ListOfUsers() {
 										<td className='flex gap-2 whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-gray-500'>
 											<button type='button'>
 												<svg
+													aria-label='edit'
 													xmlns='http://www.w3.org/2000/svg'
 													fill='none'
 													viewBox='0 0 24 24'
 													strokeWidth={1.5}
 													stroke='currentColor'
-													className='{h-6 w-6}'
+													className='size-6'
 												>
 													<path
 														strokeLinecap='round'
@@ -65,8 +68,12 @@ export default function ListOfUsers() {
 													/>
 												</svg>
 											</button>
-											<button type='button'>
+											<button
+												type='button'
+												onClick={() => handleDelete(person.id)}
+											>
 												<svg
+													aria-label='Delete'
 													xmlns='http://www.w3.org/2000/svg'
 													fill='none'
 													viewBox='0 0 24 24'
