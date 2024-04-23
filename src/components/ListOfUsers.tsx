@@ -1,33 +1,8 @@
 const tableHead = ['Name', 'Email', 'Role', '']
-
-const people = [
-	{
-		name: 'Jane Cooper',
-		role: 'Admin',
-		email: 'jane.cooper@example.com',
-		github: 'johndoe',
-	},
-	{
-		name: 'John Doe',
-		role: 'Tester',
-		email: 'john.doe@example.com',
-		github: 'johndoe',
-	},
-	{
-		name: 'Veronica Lodge',
-		role: ' Software Engineer',
-		email: 'veronica.lodge@example.com',
-		github: 'veronicalodge',
-	},
-	{
-		name: 'Peter  Parker',
-		role: 'Software Movile',
-		email: 'peter@example.com',
-		github: 'alejopua',
-	},
-]
+import { useAppSelector } from '../hooks/store'
 
 export default function ListOfUsers() {
+	const people = useAppSelector(state => state.users)
 	return (
 		<div className='h-screen bg-slate-700 p-3 '>
 			<div className='-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8'>
