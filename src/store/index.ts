@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, type Middleware } from '@reduxjs/toolkit'
 import usersReducer from './users/slice'
 
-const localStoragePersistanceMiddleware =
-	(store: { getState: () => any }) =>
-	(next: (arg0: any) => void) =>
-	(action: any) => {
+const localStoragePersistanceMiddleware: Middleware =
+	store => next => action => {
 		next(action)
 		localStorage.setItem('__redux_state__', JSON.stringify(store.getState()))
 	}
