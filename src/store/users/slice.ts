@@ -6,7 +6,6 @@ export interface User {
 	name: string
 	role: string
 	email: string
-	github: string
 }
 
 export interface UserId extends User {
@@ -19,28 +18,24 @@ const DEFAULT_STATE: UserId[] = [
 		name: 'James Bond',
 		role: 'Admin',
 		email: 'jane.cooper@example.com',
-		github: 'johndoe',
 	},
 	{
 		id: '2',
 		name: 'John Doe',
 		role: 'Tester',
 		email: 'john.doe@example.com',
-		github: 'johndoe',
 	},
 	{
 		id: '3',
 		name: 'Veronica Lodge',
 		role: ' Software Engineer',
 		email: 'veronica.lodge@example.com',
-		github: 'veronicalodge',
 	},
 	{
 		id: '4',
 		name: 'Peter  Parker',
 		role: 'Software Movile',
 		email: 'peter@example.com',
-		github: 'alejopua',
 	},
 ]
 
@@ -57,8 +52,12 @@ export const usersSlice = createSlice({
 			const id = action.payload
 			return state.filter(user => user.id !== id)
 		},
+		createUser: (state, action: PayloadAction<User>) => {
+			const id = crypto.randomUUID()
+			return [...state, { id, ...action.payload }]
+		},
 	},
 })
 
 export default usersSlice.reducer
-export const { deleteUser } = usersSlice.actions
+export const { deleteUser, createUser } = usersSlice.actions
