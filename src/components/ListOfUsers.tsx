@@ -7,7 +7,7 @@ export default function ListOfUsers() {
 
 	return (
 		<>
-			<div className='h-dvh bg-white rounded-lg overflow-x-auto overflow-y-auto'>
+			<div className='h-full bg-white rounded-lg overflow-auto '>
 				<table className='overflow-hidden divide-y divide-gray-200 rounded-lg'>
 					<thead className='bg-gray-50'>
 						<tr>
