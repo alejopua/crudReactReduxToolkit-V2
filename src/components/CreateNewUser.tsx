@@ -26,10 +26,10 @@ export const CreateNewUser = () => {
 		<>
 			<section className=' bg-gray-50 min-w-full border-b border-gray-200 shadow rounded-lg mb-3'>
 				<form onSubmit={handleSubmit}>
-					<div className='h-auto px-6 py-3 text text-xs font-medium uppercase tracking-wider text-gray-500 border-b border-gray-200 flex justify-between items-center'>
-						<h1>NEW USER</h1>
+					<div className='h-auto px-6 py-3 text text-xs font-medium uppercase tracking-wider text-gray-500 border-b border-gray-200 flex justify-between items-center gap-3'>
+						<h1 className='h-full'>NEW USER</h1>
 
-						<div className='flex items-center justify-end gap-x-6'>
+						<div className='flex flex-wrap items-center justify-end gap-x-6'>
 							<button
 								type='button'
 								className='text-sm font-semibold leading-6 text-gray-900'
@@ -45,7 +45,7 @@ export const CreateNewUser = () => {
 							</button>
 						</div>
 					</div>
-					<div className='m-8 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6'>
+					<div className='grid grid-cols-1 gap-x-6 gap-y-3 sm:grid-cols-6 my-4 mx-6'>
 						<div className='sm:col-span-2 sm:col-start-1'>
 							<div className='mt-2'>
 								<input
