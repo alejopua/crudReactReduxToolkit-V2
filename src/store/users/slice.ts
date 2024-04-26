@@ -1,6 +1,12 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from './../index'
 
-export type UserID = string
+import {
+	createSelector,
+	createSlice,
+	type PayloadAction,
+} from '@reduxjs/toolkit'
+
+export type UserID = string | null
 
 export interface User {
 	name: string
@@ -8,14 +14,14 @@ export interface User {
 	email: string
 }
 
-export interface UserId extends User {
+export interface UserWithId extends User {
 	id: UserID
 }
 
-const DEFAULT_STATE: UserId[] = [
+const DEFAULT_STATE: UserWithId[] = [
 	{
 		id: '1',
-		name: 'James Bond',
+		name: 'Jane Cooper',
 		role: 'Admin',
 		email: 'jane.cooper@example.com',
 	},
@@ -39,7 +45,7 @@ const DEFAULT_STATE: UserId[] = [
 	},
 ]
 
-const initialState: UserId[] = (() => {
+const initialState: UserWithId[] = (() => {
 	const persistanceState = localStorage.getItem('__redux_state__')
 	return persistanceState ? JSON.parse(persistanceState).users : DEFAULT_STATE
 })()
@@ -54,10 +60,23 @@ export const usersSlice = createSlice({
 		},
 		createUser: (state, action: PayloadAction<User>) => {
 			const id = crypto.randomUUID()
-			return [...state, { id, ...action.payload }]
+			state.push({ id, ...action.payload })
+		},
+		editUserById: (state, action: PayloadAction<UserWithId>) => {
+			const { id, ...dataUser } = action.payload
+			const existingUser = state.find(user => user.id === id)
+			if (existingUser) Object.assign(existingUser, dataUser)
 		},
 	},
 })
 
+export const { deleteUser, createUser, editUserById } = usersSlice.actions
+export const selectUsers = (state: RootState) => state.users
+
+export const selectUserById = createSelector(
+	[selectUsers, (_: RootState, Id: UserID) => Id],
+	(users: UserWithId[], Id: UserID) =>
+		users.find(user => user.id === Id) || null,
+)
+
 export default usersSlice.reducer
-export const { deleteUser, createUser } = usersSlice.actions
