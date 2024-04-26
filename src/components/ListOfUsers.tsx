@@ -1,9 +1,9 @@
 const tableHead = ['Name', 'Email', 'Role', 'Actions']
-import { useUsersActions, useAppSelector } from '../hooks'
+import { useActions, useAppSelector } from '../hooks'
 
 export default function ListOfUsers() {
 	const people = useAppSelector(state => state.users)
-	const { handleDelete } = useUsersActions()
+	const { handleDelete, openEditModal } = useActions()
 
 	return (
 		<>
@@ -22,17 +22,18 @@ export default function ListOfUsers() {
 						</tr>
 					</thead>
 					<tbody className='divide-y divide-gray-200 bg-white'>
-						{people.map(person => (
-							<tr key={person.name}>
+						{people.map((person, index) => (
+							<tr key={index}>
 								<td className='whitespace-nowrap px-6 py-4'>
 									<div className='h-10 flex items-center'>
 										<div className='size-10 shrink-0 hidden lg:inline'>
 											<img
 												className='size-10 rounded-full'
-												src='https://avatar.iran.liara.run/public'
+												src={`https://unavatar.io/github/${person.name}`}
 												alt={person.name}
 											/>
 										</div>
+
 										<div className='ml-3'>
 											<div className='text-sm font-medium text-gray-900'>
 												{person.name}
@@ -47,7 +48,10 @@ export default function ListOfUsers() {
 									{person.role}
 								</td>
 								<td className='w-8 flex gap-2 whitespace-nowrap px-6 py-4 text-right text-sm font-medium text-gray-500'>
-									<button type='button'>
+									<button
+										type='button'
+										onClick={() => openEditModal(person.id)}
+									>
 										<svg
 											aria-label='edit'
 											xmlns='http://www.w3.org/2000/svg'
