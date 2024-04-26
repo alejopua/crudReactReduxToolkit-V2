@@ -1,2 +1,2 @@
 export * from './store'
-export * from './useUsersActions'
+export * from './useActions'
