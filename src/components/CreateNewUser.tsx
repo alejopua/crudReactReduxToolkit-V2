@@ -1,7 +1,7 @@
-import { useUsersActions } from '../hooks'
+import { useActions } from '../hooks'
 
 export const CreateNewUser = () => {
-	const { addUser } = useUsersActions()
+	const { addUser } = useActions()
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
